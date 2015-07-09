@@ -1,3 +1,30 @@
+USE [SqlTraining]
+GO
+
+/****** Object:  Table [dbo].[employees]    Script Date: 08-07-2015 11:33:00 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[employees](
+	[employee_id] [int] NOT NULL,
+	[last_name] [varchar](50) NOT NULL,
+	[first_name] [varchar](50) NULL,
+	[designation] [varchar](50) NULL,
+	[salary] [money] NULL
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
 --INSERTION
 
 
