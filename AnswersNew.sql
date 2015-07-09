@@ -385,7 +385,7 @@ SELECT CAST(e_id AS varchar(10)) from employee;
 
 
 
---question 56 (60. Case Statements)
+--question 56 (60.Case Statements)
 
 SELECT employee_id,
 CASE
