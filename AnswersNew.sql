@@ -230,12 +230,18 @@ ORDER BY EMPLOYEE_NAME;
 
 --question 21 (26. SQL Select Into)
 
+SELECT *
+INTO Employee_Backup FROM employees;
+
 
 --question 22 (27. SQL Create DB)
 
+CREATE DATABASE NEW_DB;
 
 --question 23 (28. SQL Create Table)
 
+CREATE TABLE EMPLOYEE_NEW
+(EMPLOYEE_ID int, F_NAME varchar(50), L_NAME varchar(50), SEX varchar(2), STATUS bit);
 
 --question 24 (29. SQL Constraints)
 CREATE TABLE EMPLOYEE1
@@ -265,13 +271,11 @@ EMPLOYEE_NAME varchar(50) UNIQUE,
  TEAM_NAME varchar(50) NOT NULL,
  CHECK (EMPLOYEE_ID>0));
 
---question 28 (33.SQL Foreign Key )?????????????????
-CREATE TABLE EMPLOYEE5
-(EMPLOYEE_ID varchar(50) PRIMARY KEY, 
-EMPLOYEE_NAME varchar(50) UNIQUE,
- TEAM_NAME varchar(50) NOT NULL,
- CHECK (EMPLOYEE_ID>0));
-
+--question 28 (33.SQL Foreign Key )
+CREATE TABLE NEWTABLE
+(EMPLOYEE_ID int primary key, F_NAME varchar(50), L_NAME varchar(50), SEX varchar(2), STATUS bit);
+CREATE TABLE NEWTABLE_Fkey
+(ID int primary key, NUM int FOREIGN KEY REFERENCES NEWTABLE(EMPLOYEE_ID) );
 --question 29 (34.SQL Check )
 CREATE TABLE EMPLOYEE6
 (EMPLOYEE_ID varchar(50) PRIMARY KEY, 
@@ -309,6 +313,11 @@ update employees set salary=salary+5000;
 
 --question 35 (40. SQL Views)
 
+ALTER TABLE employees add date_joining date;
+CREATE VIEW AS 
+SELECT date_joining from employees 
+where salary>40000;
+
 --question 36 (41. SQL Dates)
 
 --question 37 (42. SQL Nulls)
@@ -318,69 +327,72 @@ use SqlTraining;
 SELECT * FROM employees
 WHERE last_name IS NULL
  
---question 39 (44. SQL SQL avg())
+--question 39 (46. SQL SQL avg())
 SELECT * FROM employees
 WHERE (salary > (select avg(salary) from employees));
+--question 40 (47. SQL count())
 
---question 40 (45. SQL count())
-
---question 41 (46. SQL max())
+--question 41 (48. SQL max())
 
 SELECT * FROM employees
 WHERE (salary < (select max(salary) from employees));
 
---question 42 (47. SQL min())
+--question 42 (49. SQL min())
 
 SELECT * FROM employees
 WHERE (salary > (select min(salary) from employees));
 
---question 43 (48. SQL sum())
+--question 43 (50. SQL sum())
 
 SELECT SUM(salary) FROM employees;
 
---question 44 (49. SQL Group By)
+--question 44 (51. SQL Group By)
 
+SELECT designation,COUNT(last_name) FROM employees group by designation;
 
---question 45 (50. SQL Having)
+--question 45 (52. SQL Having)
 
+SELECT LMN.EMPLOYEE_NO, COUNT(employees.salary) AS NUMBER FROM employees 
+INNER JOIN LMN
+ON LMN.EMPLOYEE_NO=employees.employee_id
+where EMPLOYEE_ID=1
+ group by EMPLOYEE_NO having LMN.EMPLOYEE_NO>10000;
 
---question 46 (51. SQL Nulls)
+--question 46 (53. SQL upper())
+SELECT Upper(last_name) from employees;
 
-
---question 47 (52. SQL Nulls)
-
-
---question 48 (53. SQL Nulls)
-
-
---question 49 (54. SQL Nulls)
+--question 47 (54. SQL lower())
+SELECT Lower(last_name) from employees;
 
 
 --question 50 (55. SQL len())
 
 SELECT len(first_name) AS Length_of_first_Name from employees;
 
---question 51 (56. SQL Nulls)
 
 
---question 52 (55. SQL Nulls)
+--question 56(SQL ROUND())
+SELECT firstname, lastname,ROUND(salary,0) as roundedsalary from employee;
 
+--question 57(SQL GETDATE())
+SELECT *,GETDATE() as currentDate from employee;
 
+--question 58(SQL CONVERT())
+SELECT firstname,salary,CONVERT(VARCHAR(19),GETDATE(),3) as today from employee;
 
---question 53 (57. SQL Nulls)
-
-
-
---question 54 (58. SQL Nulls)
-
-
-
---question 55 (59. SQL cast())
+--question 59(CAST())
+SELECT CAST(e_id AS varchar(10)) from employee;
 
 
 
---question 56 (60. SQL Nulls)
+--question 56 (60. Case Statements)
 
-
+SELECT employee_id,
+CASE
+  WHEN employee_id = 1 THEN 'Tea'
+  WHEN employee_id = 2 THEN 'Check'
+  ELSE 'Big'
+END
+FROM employees;
 
 
