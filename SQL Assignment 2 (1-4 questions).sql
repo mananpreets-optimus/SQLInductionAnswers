@@ -173,6 +173,33 @@ OR
 );
 
 
+--4 B)
+
+
+SELECT *
+FROM
+(
+SELECT DISTINCT 
+ 
+ CASE 
+							WHEN Emp_m_name IS NULL 
+							THEN Emp_f_name+''+Emp_l_name
+							ELSE
+							Emp_f_name+Emp_m_name+Emp_l_name
+							END  AS name
+
+							,
+ 
+ 
+ year(t_atten_det.Atten_start_datetime) as [year],
+  datename(month,t_atten_det.Atten_start_datetime) as [month], datename(day,t_atten_det.Atten_start_datetime) as [day] , 
+  t_atten_det.Atten_end_hrs AS hrs FROM t_emp INNER JOIN t_atten_det ON t_emp.Emp_id=t_atten_det.Emp_id)l
+PIVOT
+(
+SUM(l.hrs) FOR [day] IN ([1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12],[13],[14],[15],[16],
+[17],[18],[19],[20],[21],[22],[23],[24],[25],[26],[27],[28],[29],[30],[31])
+)pvt;
+
 -- 4 C)Display employee full name, got increment in salary?, previous salary, current salary, total worked hours , last worked activity and hours worked in that.
 SELECT  t_emp.Emp_f_name,
   
