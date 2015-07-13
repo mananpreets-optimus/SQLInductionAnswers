@@ -66,7 +66,7 @@ SELECT * FROM employees where salary>50000 AND (designation='SD' OR designation=
 
 use SqlTraining;
 SELECT TOP 5* FROM employees
-ORDER BY salary;
+ORDER BY salary DESC;
 
 
 --question 6 (10. SQL Insert)
@@ -98,7 +98,7 @@ where grade=1 AND designation='Trainee';
 
 --question 9 (14. SQL Top)
 --Top3
-SELECT TOP 5* FROM employees
+SELECT TOP 3* FROM employees
 ORDER BY salary DESC;
 
 --Second
@@ -157,9 +157,9 @@ INSERT INTO EMPLOYEE_SLAB (EMPLOYEE_ID,TEAM_NO,TEAM_NAME)
 (2,4,'MAMAN'),
 (3,5,'ACMAN');
 use SqlTraining;
-SELECT employees.salary,employees.employee_id,employees.last_name,employees.first_name,employees.age,
-EMPLOYEE_SLAB.EMPLOYEE_ID 
-FROM EMPLOYEE_SLAB INNER JOIN employees  ON employees.employee_id=EMPLOYEE_SLAB.EMPLOYEE_ID;
+SELECT emp.salary,emp.employee_id,emp.last_name,emp.first_name,emp.age,
+es.EMPLOYEE_ID 
+FROM EMPLOYEE_SLAB es INNER JOIN employees emp ON emp.employee_id=es.EMPLOYEE_ID;
 
 
 
@@ -256,9 +256,13 @@ SELECT EMPLOYEE_NAME FROM LMN
 ORDER BY EMPLOYEE_NAME;
 
 --question 21 (26. SQL Select Into)
+CREATE DATABASE BACKUP_DB;
 
-SELECT *
-INTO Employee_Backup FROM employees;
+use [SqlTraining]
+SELECT * 
+INTO [BACKUP_DB]..[Employee_Backup123]
+FROM [Employee_Backup123]
+
 
 
 --question 22 (27. SQL Create DB)
@@ -268,7 +272,7 @@ CREATE DATABASE NEW_DB;
 --question 23 (28. SQL Create Table)
 
 CREATE TABLE EMPLOYEE_NEW
-(EMPLOYEE_ID int, F_NAME varchar(50), L_NAME varchar(50), SEX varchar(2), STATUS bit);
+(EMPLOYEE_ID int, F_NAME varchar(50), L_NAME varchar(50), SEX varchar(1), STATUS bit);
 
 --question 24 (29. SQL Constraints)
 CREATE TABLE EMPLOYEE1
@@ -321,12 +325,16 @@ EMPLOYEE_NAME varchar(50) UNIQUE,
  CHECK (EMPLOYEE_ID>0));
 
 --question 31 (36. SQL Drop)
-
-DROP TABLE EMPLOYEE15;
+CREATE TABLE Designation
+(EMPLOYEE_ID varchar(50) PRIMARY KEY, 
+EMPLOYEE_NAME varchar(50) UNIQUE,
+ TEAM_NAME varchar(50) NOT NULL DEFAULT 'MY TEAM',
+ CHECK (EMPLOYEE_ID>0));
+DROP TABLE Designation;
 
 --question 32 (37. SQL Create Index)
 CREATE UNIQUE INDEX MY_INDEX
-ON DEPARTMENT (DEPT,DEPT_NAME);
+ON employees (first_name,last_name);
 
 --question 33 (38. SQL ALTER)
 
@@ -346,9 +354,10 @@ SELECT date_joining from employees
 where salary>40000;
 
 --question 36 (41. SQL Dates)
-
+select GETDATE() as currentDate from employees;
+select GETDATE()+2 as currentDate from employees;
 --question 37 (42. SQL Nulls)
-
+SELECT COUNT(salary) from employee;
 --question 38 (43. SQL isnull())
 use SqlTraining;
 SELECT * FROM employees
