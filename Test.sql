@@ -95,6 +95,7 @@ GROUP BY Country
 
 
 --3 DONE
+use Test;
 SELECT  TOP 2 MAX(q.cnt),Post.Post from PostLikes p
 INNER JOIN 
 Post
